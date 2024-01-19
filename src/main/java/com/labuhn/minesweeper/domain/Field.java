@@ -1,15 +1,5 @@
 package com.labuhn.minesweeper.domain;
 
-/**
-* Field contains status information such as
-* <ul>
- * <li>isMine</li>
- * <li>covered</li>
- * <li>flagStatus</li>
- * <li>surroundingMines</li>
-* </ul>
-*
-*/
 public class Field {
 
     private boolean covered;
