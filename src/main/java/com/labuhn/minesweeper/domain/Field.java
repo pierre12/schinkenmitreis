@@ -7,8 +7,8 @@ public class Field {
     private FlagStatus flagStatus;
     private int surroundingMines;
 
-    public Field(boolean uncovered, boolean isMine, int surroundingMines) {
-        this.covered = uncovered;
+    public Field(boolean covered, boolean isMine, int surroundingMines) {
+        this.covered = covered;
         this.isMine = isMine;
         this.surroundingMines = surroundingMines;
         this.flagStatus= FlagStatus.NOT_MARKED;
