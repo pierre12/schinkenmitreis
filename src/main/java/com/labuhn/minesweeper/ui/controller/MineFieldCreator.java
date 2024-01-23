@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.util.Objects;
+
 public class MineFieldCreator {
 
     public Button createField(Field field, EventHandler<MouseEvent> mouseEventHandler) {
@@ -27,7 +29,7 @@ public class MineFieldCreator {
         if(isUncoveredMine(field )){
             button.setDisable(true);
             button.setStyle("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
-            button.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/icons/Bomb.png"))));
+            button.setGraphic(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icons/Bomb.png")))));
         }
 
         return button;

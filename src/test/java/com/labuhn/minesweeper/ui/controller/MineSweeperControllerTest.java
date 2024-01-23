@@ -13,7 +13,6 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -45,7 +44,7 @@ public class MineSweeperControllerTest {
         mineSweeperController.setDimension(10,1);
         when(mineFieldCreator.createField(Mockito.any(),Mockito.any())).thenReturn(button1);
 
-        mineSweeperController.render(Arrays.asList(field));
+        mineSweeperController.render(List.of(field));
 
         Mockito.verify(mineSweeperGrid, times(1)).addRow(Mockito.anyInt(),captor.capture());
         List<Button> values = captor.getAllValues();
@@ -60,7 +59,7 @@ public class MineSweeperControllerTest {
         mineSweeperController.setDimension(1,10);
         when(mineFieldCreator.createField(Mockito.any(),Mockito.any())).thenReturn(button1);
 
-        mineSweeperController.render(Arrays.asList(field));
+        mineSweeperController.render(List.of(field));
 
         Mockito.verify(mineSweeperGrid, times(10)).addRow(Mockito.anyInt(),captor.capture());
         List<Button> values = captor.getAllValues();
@@ -75,7 +74,7 @@ public class MineSweeperControllerTest {
         when(mineFieldCreator.createField(Mockito.any(),Mockito.any())).thenReturn(button1);
         mineSweeperController.setDimension(16,16);
 
-        mineSweeperController.render(Arrays.asList(field));
+        mineSweeperController.render(List.of(field));
 
         Mockito.verify(mineSweeperGrid, times(16)).addRow(Mockito.anyInt(),captor.capture());
         List<Button> values = captor.getAllValues();

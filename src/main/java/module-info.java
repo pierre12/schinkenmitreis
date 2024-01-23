@@ -6,4 +6,5 @@ module minesweeper {
     opens com.labuhn.minesweeper to javafx.graphics;
 
     exports com.labuhn.minesweeper.ui.controller;
+    exports com.labuhn.minesweeper.domain;
 }

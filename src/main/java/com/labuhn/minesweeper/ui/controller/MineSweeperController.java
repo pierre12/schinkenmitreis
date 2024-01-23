@@ -1,16 +1,13 @@
 package com.labuhn.minesweeper.ui.controller;
 
 import com.labuhn.minesweeper.domain.Field;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MineSweeperController {
@@ -24,7 +21,7 @@ public class MineSweeperController {
     private EventHandler<MouseEvent> onFieldClicked(int x, int y) {
         return event -> {
             MouseButton pressedButton = event.getButton();
-            System.out.println(String.format("Field %s:%s pressed with button %s", x, y, pressedButton));
+            System.out.printf("Field %s:%s pressed with button %s%n", x, y, pressedButton);
         };
     }
 

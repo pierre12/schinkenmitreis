@@ -15,9 +15,9 @@ import org.testfx.framework.junit5.ApplicationExtension;
 @ExtendWith({MockitoExtension.class, ApplicationExtension.class})
 public class MineFieldCreatorTest {
 
-    private MineFieldCreator mineFieldCreator  = new MineFieldCreator();
+    private final MineFieldCreator mineFieldCreator  = new MineFieldCreator();
 
-    private EventHandler<MouseEvent>  emptyMouseHandler = event -> {};
+    private final EventHandler<MouseEvent>  emptyMouseHandler = event -> {};
 
     @Test
     public void createUncoveredEmptyField(){
