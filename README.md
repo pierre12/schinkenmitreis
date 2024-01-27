@@ -20,9 +20,9 @@ UI
 Logic
 - Creates a grid of fields with a set number of mines randomly distributed depending on the size of the grid
   -  (16x16 = 20 Mines, 30x30= 40 Mines)
-- Uncovering a mine field leads to a lose
+- Uncovering a minefield leads to a loss
 - First click onto the grid has to be safe
-- if a uncovered field is clicked all connected fields are uncovered until the border consists of uncovered fields with hint.
+- if an uncovered field is clicked all connected fields are uncovered until the border consists of uncovered fields with hint.
 - every game should be completely solvable without a luck factor. -> could be very hard to implement
 - if the grid only consists of covered mines the game is won
 
