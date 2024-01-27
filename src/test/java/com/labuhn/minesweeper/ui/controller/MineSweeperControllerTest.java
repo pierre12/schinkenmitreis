@@ -60,7 +60,7 @@ public class MineSweeperControllerTest {
 
         Mockito.verify(mineSweeperGrid, times(10)).addRow(Mockito.anyInt(), captor.capture());
         List<Label> labels = captor.getAllValues().stream().flatMap(Arrays::stream).collect(Collectors.toList());
-        assertThat(labels).hasSize(10);
+        assertThat(labels).hasSize(10222);
         assertThat(labels).contains(cell);
     }
 
