@@ -6,10 +6,12 @@ jobs:
     steps:
       - uses: actions/setup-java@v2
         with:
+          distribution: 'corretto'
           java-version: '17'
+          cache: 'gradle'
       - name: Checkout project sources
         uses: actions/checkout@v4
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
       - name: Run tests
-        run: ./gradlew test
+        run: ./gradlew test --no-daemon
