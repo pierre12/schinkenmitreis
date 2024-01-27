@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.*;
 
 import com.labuhn.minesweeper.domain.Cell;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.Test;
@@ -22,74 +23,81 @@ public class MineCellCreatorTest {
 
     @Test
     public void createUncoveredEmptyField(){
-        Button field = mineFieldCreator.createField(new Cell(false, false, 0), null);
+        Label cell = mineFieldCreator.createCell(new Cell(false, false, 0), null);
 
-        assertThat(field.getStyle()).isEqualTo("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
-        assertThat(field.getPrefHeight()).isEqualTo(35);
-        assertThat(field.getPrefWidth()).isEqualTo(35);
-        assertThat(field.getText()).isEqualTo("");
-        assertThat(field.isDisabled()).isEqualTo(true);
-        assertThat(field.getOnMouseClicked()).isNull();
+        assertThat(cell.getMinHeight()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getMinWidth()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getText()).isEqualTo("");
+        assertThat(cell.getAlignment()).isEqualTo(Pos.CENTER);
+        assertThat(cell.getId()).isEqualTo("uncovered");
+        assertThat(cell.getOnMouseClicked()).isNull();
     }
 
     @Test
     public void createCoveredEmptyField(){
-        Button field = mineFieldCreator.createField(new Cell(true, false, 0), emptyMouseHandler);
+        Label cell = mineFieldCreator.createCell(new Cell(true, false, 0), emptyMouseHandler);
 
-        assertThat(field.getStyle()).isEqualTo("-fx-background-radius: 0;");
-        assertThat(field.getPrefHeight()).isEqualTo(35);
-        assertThat(field.getPrefWidth()).isEqualTo(35);
-        assertThat(field.getText()).isEqualTo("");
-        assertThat(field.isDisabled()).isEqualTo(false);
-        assertThat(field.getOnMouseClicked()).isEqualTo(emptyMouseHandler);
+        assertThat(cell.getMinHeight()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getMinWidth()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getText()).isEqualTo("");
+        assertThat(cell.getId()).isEqualTo("covered");
+        assertThat(cell.getOnMouseClicked()).isEqualTo(emptyMouseHandler);
     }
 
     @Test
     public void createUncoveredFieldWithSurroundingMines(){
-        Button field = mineFieldCreator.createField(new Cell(false, false, 4), null);
+        Label cell = mineFieldCreator.createCell(new Cell(false, false, 4), null);
 
-        assertThat(field.getStyle()).isEqualTo("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
-        assertThat(field.getPrefHeight()).isEqualTo(35);
-        assertThat(field.getPrefWidth()).isEqualTo(35);
-        assertThat(field.getText()).isEqualTo("4");
-        assertThat(field.isDisabled()).isEqualTo(true);
-        assertThat(field.getOnMouseClicked()).isNull();
+        assertThat(cell.getMinHeight()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getMinWidth()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getText()).isEqualTo("4");
+        assertThat(cell.getId()).isEqualTo("uncovered");
+        assertThat(cell.getOnMouseClicked()).isNull();
     }
 
     @Test
     public void createCoveredFieldWithSurroundingMines(){
-        Button field = mineFieldCreator.createField(new Cell(true, false, 4), emptyMouseHandler);
+        Label cell = mineFieldCreator.createCell(new Cell(true, false, 4), emptyMouseHandler);
 
-        assertThat(field.getStyle()).isEqualTo("-fx-background-radius: 0;");
-        assertThat(field.getPrefHeight()).isEqualTo(35);
-        assertThat(field.getPrefWidth()).isEqualTo(35);
-        assertThat(field.getText()).isEqualTo("");
-        assertThat(field.isDisabled()).isEqualTo(false);
-        assertThat(field.getOnMouseClicked()).isEqualTo(emptyMouseHandler);
+        assertThat(cell.getMinHeight()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getMinWidth()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getText()).isEqualTo("");
+        assertThat(cell.getId()).isEqualTo("covered");
+        assertThat(cell.getOnMouseClicked()).isEqualTo(emptyMouseHandler);
     }
 
 
     @Test
     public void createUncoveredMineField(){
-        Button field = mineFieldCreator.createField(new Cell(false, true, 4), null);
+        Label cell = mineFieldCreator.createCell(new Cell(false, true, 4), null);
 
-        assertThat(field.getStyle()).isEqualTo("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
-        assertThat(field.getPrefHeight()).isEqualTo(35);
-        assertThat(field.getPrefWidth()).isEqualTo(35);
-        assertThat(field.isDisabled()).isEqualTo(true);
-        assertThat(field.getGraphic().getClass()).isEqualTo(ImageView.class);
-        assertThat(field.getOnMouseClicked()).isNull();
+        assertThat(cell.getMinHeight()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getMinWidth()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getId()).isEqualTo("bomb");
+        assertThat(cell.getGraphic().getClass()).isEqualTo(ImageView.class);
+        assertThat(cell.getOnMouseClicked()).isNull();
     }
 
     @Test
     public void createCoveredMineField(){
-        Button field = mineFieldCreator.createField(new Cell(true, true, 4), emptyMouseHandler);
+        Label cell  = mineFieldCreator.createCell(new Cell(true, true, 4), emptyMouseHandler);
 
-        assertThat(field.getStyle()).isEqualTo("-fx-background-radius: 0;");
-        assertThat(field.getPrefHeight()).isEqualTo(35);
-        assertThat(field.getPrefWidth()).isEqualTo(35);
-        assertThat(field.getText()).isEqualTo("");
-        assertThat(field.isDisabled()).isEqualTo(false);
-        assertThat(field.getOnMouseClicked()).isEqualTo(emptyMouseHandler);
+        assertThat(cell.getMinHeight()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getMinWidth()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getText()).isEqualTo("");
+        assertThat(cell.getId()).isEqualTo("covered");
+        assertThat(cell.getOnMouseClicked()).isEqualTo(emptyMouseHandler);
     }
 }

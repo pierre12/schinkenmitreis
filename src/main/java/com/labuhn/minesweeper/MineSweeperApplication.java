@@ -1,6 +1,5 @@
 package com.labuhn.minesweeper;
 
-import com.labuhn.minesweeper.domain.Cell;
 import com.labuhn.minesweeper.ui.controller.MineFieldCreator;
 import com.labuhn.minesweeper.ui.controller.MineSweeperController;
 import javafx.application.Application;
@@ -11,8 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class MineSweeperApplication extends Application {
 
@@ -22,28 +20,19 @@ public class MineSweeperApplication extends Application {
         FXMLLoader loader = new FXMLLoader(resource);
         Parent root = loader.load();
         primaryStage.setTitle("Mine Sweeper Deluxe");
-        primaryStage.setScene(new Scene(root, 450, 450));
+        Scene scene = new Scene(root, 450, 450);
+        scene.getStylesheets().addAll(Objects.requireNonNull(this.getClass().getResource("/com/labuhn/minesweeper/MineSweeper.css")).toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.setWidth(700);
         primaryStage.setHeight(700);
         primaryStage.setResizable(true);
         primaryStage.show();
 
-        List<Cell> cells = createDummyFields();
 
-        MineSweeperController controller =  loader.getController();
+        MineSweeperController controller = loader.getController();
         controller.setMineFieldCreator(new MineFieldCreator());
-        controller.render(cells);
+        controller.startGame(16,16);
     }
 
-    private static List<Cell> createDummyFields() {
-        List<Cell> cells = new ArrayList<>();
-        cells.add(new Cell(false, true, 0));
-        cells.add(new Cell(false, false, 6));
-        cells.add(new Cell(true, true, 0));
-        cells.add(new Cell(true, false, 0));
-        cells.add(new Cell(true, true, 6));
-        cells.add(new Cell(true, false, 6));
-        return cells;
-    }
 
 }

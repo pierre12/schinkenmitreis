@@ -3,25 +3,25 @@ package com.labuhn.minesweeper.ui.controller;
 import com.labuhn.minesweeper.domain.Cell;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MineSweeperController {
     @FXML
     private GridPane mineSweeperGrid;
 
-    private int width = 16;
-    private int height = 16;
     private MineFieldCreator mineFieldCreator;
 
     private EventHandler<MouseEvent> onFieldClicked(int x, int y) {
         return event -> {
             MouseButton pressedButton = event.getButton();
             System.out.printf("Field %s:%s pressed with button %s%n", x, y, pressedButton);
+            // Talk to backend and rerender ui
         };
     }
 
@@ -29,20 +29,45 @@ public class MineSweeperController {
         this.mineFieldCreator = mineFieldCreator;
     }
 
-    public void setDimension(int width, int height){
-        this.width = width;
-        this.height = height;
+    public void startGame(int width, int height){
+        render(createDummyGrid(width,height));
     }
-    public void render(List<Cell> cells) {
-            for (int x = 0; x < height; x++) {
-                Control[] row = new Control[width];
-                for (int y = 0; y < width; y++) {
-                    Cell randomCell = cells.get((int) (Math.random() * cells.size()));
-                    Control field = this.mineFieldCreator.createField(randomCell,onFieldClicked(x, y));
-                    row[y] = field;
-                }
-                mineSweeperGrid.addRow(x, row);
+
+    private void render(Cell[][] grid) {
+        for (int y = 0; y < grid.length; y++) {
+            Cell[] gridRow = grid[y];
+            Label[] row = new Label[gridRow.length];
+            for (int x = 0; x < gridRow.length; x++) {
+                row[x] = this.mineFieldCreator.createCell(gridRow[x],onFieldClicked(x, y));
             }
+            mineSweeperGrid.addRow(y,row);
+        }
+    }
+
+    private static Cell[][] createDummyGrid(int width,int height) {
+        Cell[][] grid = new Cell[height][width];
+        List<Cell> cells = new ArrayList<>();
+        cells.add(new Cell(false, true, 0));
+        cells.add(new Cell(false, false, 1));
+        cells.add(new Cell(false, false, 2));
+        cells.add(new Cell(false, false, 3));
+        cells.add(new Cell(false, false, 4));
+        cells.add(new Cell(false, false, 5));
+        cells.add(new Cell(false, false, 6));
+        cells.add(new Cell(false, false, 7));
+        cells.add(new Cell(false, false, 8));
+        cells.add(new Cell(true, true, 0));
+        cells.add(new Cell(true, false, 0));
+        cells.add(new Cell(true, true, 6));
+        cells.add(new Cell(true, false, 6));
+
+        for (int y = 0;  y < height; y++){
+            for (int x = 0;  x < width; x++){
+                grid[y][x]= cells.get((int)(Math.random()*cells.size()));
+            }
+        }
+
+        return grid;
     }
 
 }

@@ -37,7 +37,7 @@ class CellValidatorTest {
         cell.setFlagStatus(flagStatus);
         Assertions.assertThatThrownBy(() -> CellValidator.validateCell(cell))
                 .isInstanceOf(InvalidParameterException.class)
-                .hasMessageContaining("Uncovered fields")
+                .hasMessageContaining("Uncovered cell")
                 .hasMessageContaining(flagStatus.toString());
     }
 

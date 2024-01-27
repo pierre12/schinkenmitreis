@@ -2,7 +2,8 @@ package com.labuhn.minesweeper.ui.controller;
 
 import com.labuhn.minesweeper.domain.Cell;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -11,28 +12,40 @@ import java.util.Objects;
 
 public class MineFieldCreator {
 
-    public Button createField(Cell cell, EventHandler<MouseEvent> mouseEventHandler) {
-        Button button = new Button();
-        button.setPrefSize(35,35);
-        button.setMaxSize(35,35);
-        button.setOnMouseClicked(mouseEventHandler);
-        button.setStyle("-fx-background-radius: 0;");
+    public Label createCell(Cell cell, EventHandler<MouseEvent> mouseEventHandler){
+        Label label = new Label();
+        label.setMinWidth(25);
+        label.setMaxWidth(25);
+        label.setMinHeight(25);
+        label.setMaxHeight(25);
+        label.setAlignment(Pos.CENTER);
+
+        if(cell.isCovered()){
+            label.setId("covered");
+            label.setOnMouseClicked(mouseEventHandler);
+        }
 
         if(isUncoveredField(cell)){
-            button.setDisable(true);
-            button.setStyle("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
+            label.setId("uncovered");
             if(cell.getSurroundingMines()>0){
-                button.setText(String.valueOf(cell.getSurroundingMines()));
+                label.setText(String.valueOf(cell.getSurroundingMines()));
             }
         }
 
-        if(isUncoveredMine(cell)){
-            button.setDisable(true);
-            button.setStyle("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
-            button.setGraphic(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icons/Bomb.png")))));
+        if(isUncoveredMine(cell )){
+            label.setId("bomb");
+            label.setGraphic(createImage("/icons/Bomb.png",25,25));
         }
 
-        return button;
+        return label;
+    }
+
+    private ImageView createImage(String name, int width,int height) {
+        ImageView value = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(name))));
+        value.setPreserveRatio(true);
+        value.setFitWidth(width);
+        value.setFitHeight(height);
+        return value;
     }
 
     private static boolean isUncoveredMine(Cell cell) {
