@@ -9,9 +9,8 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          distribution: zulu
+          distribution: 'corretto'
           java-version: '17'
-          java-package: jdk+fx
 
       - name: Install libgtk-3-0
         run: sudo apt-get install -y libgtk-3-0
