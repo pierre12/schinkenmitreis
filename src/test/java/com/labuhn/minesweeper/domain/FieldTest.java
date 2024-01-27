@@ -35,7 +35,7 @@ class FieldTest {
     public void shouldRejectIllegalRowCount(int rowCount){
         Assertions.assertThatThrownBy(() -> new Field(rowCount,1))
                 .isInstanceOf(InvalidParameterException.class)
-                .hasMessageContaining("Rows213 count:"+rowCount);
+                .hasMessageContaining("Row count:"+rowCount);
     }
 
     @ParameterizedTest
