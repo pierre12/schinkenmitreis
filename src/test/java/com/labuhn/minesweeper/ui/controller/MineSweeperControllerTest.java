@@ -3,8 +3,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
-import com.labuhn.minesweeper.domain.Cell;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,65 +20,72 @@ import java.util.List;
 public class MineSweeperControllerTest {
 
     @Mock
-    GridPane mineSweeperGrid;
+    private GridPane mineSweeperGrid;
 
     @Mock
-    MineFieldCreator mineFieldCreator;
+    private MineFieldCreator mineFieldCreator;
 
     @InjectMocks
-    MineSweeperController mineSweeperController;
+    private MineSweeperController mineSweeperController;
 
     @Captor
-    ArgumentCaptor<Button>  captor;
+    private ArgumentCaptor<Label> captor;
 
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         mineSweeperController.setMineFieldCreator(mineFieldCreator);
     }
 
     @Test
-    public void rendersOneRowMineField(){
-        Cell cell = new Cell(true, false, 3);
-        Button button1 = new Button("1");
-        mineSweeperController.setDimension(10,1);
-        when(mineFieldCreator.createField(Mockito.any(),Mockito.any())).thenReturn(button1);
+    public void rendersOneRowMineField() {
+        Label cell = new Label("1");
+        when(mineFieldCreator.createCell(Mockito.any(), Mockito.any())).thenReturn(cell);
 
-        mineSweeperController.render(List.of(cell));
+        mineSweeperController.startGame(10,1);
 
-        Mockito.verify(mineSweeperGrid, times(1)).addRow(Mockito.anyInt(),captor.capture());
-        List<Button> values = captor.getAllValues();
+        Mockito.verify(mineSweeperGrid, times(1)).addRow(Mockito.anyInt(), captor.capture());
+        List<Label> values = captor.getAllValues();
         assertThat(values).hasSize(10);
-        assertThat(values).contains(button1);
+        assertThat(values).contains(cell);
     }
 
     @Test
-    public void rendersOneColumnMineField(){
-        Cell cell = new Cell(true, false, 3);
-        Button button1 = new Button("1");
-        mineSweeperController.setDimension(1,10);
-        when(mineFieldCreator.createField(Mockito.any(),Mockito.any())).thenReturn(button1);
+    public void rendersOneColumnMineField() {
+        Label cell = new Label("1");
+        when(mineFieldCreator.createCell(Mockito.any(), Mockito.any())).thenReturn(cell);
 
-        mineSweeperController.render(List.of(cell));
+        mineSweeperController.startGame(1,10);
 
-        Mockito.verify(mineSweeperGrid, times(10)).addRow(Mockito.anyInt(),captor.capture());
-        List<Button> values = captor.getAllValues();
+        Mockito.verify(mineSweeperGrid, times(10)).addRow(Mockito.anyInt(), captor.capture());
+        List<Label> values = captor.getAllValues();
         assertThat(values).hasSize(10);
-        assertThat(values).contains(button1);
+        assertThat(values).contains(cell);
     }
 
     @Test
-    public void renders16x16TileMineField(){
-        Cell cell = new Cell(true, false, 3);
-        Button button1 = new Button("1");
-        when(mineFieldCreator.createField(Mockito.any(),Mockito.any())).thenReturn(button1);
-        mineSweeperController.setDimension(16,16);
+    public void renders16x16TileMineField() {
+        Label cell = new Label("1");
+        when(mineFieldCreator.createCell(Mockito.any(), Mockito.any())).thenReturn(cell);
 
-        mineSweeperController.render(List.of(cell));
+        mineSweeperController.startGame(16,16);
 
-        Mockito.verify(mineSweeperGrid, times(16)).addRow(Mockito.anyInt(),captor.capture());
-        List<Button> values = captor.getAllValues();
+        Mockito.verify(mineSweeperGrid, times(16)).addRow(Mockito.anyInt(), captor.capture());
+        List<Label> values = captor.getAllValues();
         assertThat(values).hasSize(256);
     }
+
+    @Test
+    public void renders30x30TileMineField() {
+        Label cell = new Label("1");
+        when(mineFieldCreator.createCell(Mockito.any(), Mockito.any())).thenReturn(cell);
+
+        mineSweeperController.startGame(30,30);
+
+        Mockito.verify(mineSweeperGrid, times(30)).addRow(Mockito.anyInt(), captor.capture());
+        List<Label> values = captor.getAllValues();
+        assertThat(values).hasSize(900);
+    }
+
 
 }

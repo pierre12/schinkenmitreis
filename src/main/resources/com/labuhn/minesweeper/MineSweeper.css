@@ -1,0 +1,29 @@
+
+#uncovered {
+    -fx-opacity: 1;
+    -fx-background-radius: 0;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-background-color: #E2DFD2;
+}
+
+#covered {
+    -fx-opacity: 1;
+    -fx-background-radius: 0;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #b2cbf2, #92b6f0);
+}
+
+#covered:hover{
+    -fx-background-color: white;
+}
+
+#bomb {
+    -fx-opacity: 1;
+    -fx-background-radius: 0;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-font: 16px "Serif";
+    -fx-background-color: #E2DFD2;
+}
