@@ -20,4 +20,4 @@ jobs:
         uses: gradle/gradle-build-action@v3
 
       - name: Run tests
-        run: xvfb-run :99 -screen 0 1920x1080x24 -nolisten unix & ./gradlew test
+        run: xvfb-run ./gradlew test
