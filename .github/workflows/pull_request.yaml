@@ -12,9 +12,6 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: Install libgtk-3-0
-        run: sudo apt-get install -y libgtk-3-0
-
       - name: Install at-spi2-core
         run: sudo apt-get install -y at-spi2-core
 
