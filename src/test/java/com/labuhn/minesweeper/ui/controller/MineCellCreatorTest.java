@@ -1,7 +1,8 @@
 package com.labuhn.minesweeper.ui.controller;
 
 import static org.assertj.core.api.Assertions.*;
-import com.labuhn.minesweeper.domain.Field;
+
+import com.labuhn.minesweeper.domain.Cell;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -13,7 +14,7 @@ import org.testfx.framework.junit5.ApplicationExtension;
 
 
 @ExtendWith({MockitoExtension.class, ApplicationExtension.class})
-public class MineFieldCreatorTest {
+public class MineCellCreatorTest {
 
     private final MineFieldCreator mineFieldCreator  = new MineFieldCreator();
 
@@ -21,7 +22,7 @@ public class MineFieldCreatorTest {
 
     @Test
     public void createUncoveredEmptyField(){
-        Button field = mineFieldCreator.createField(new Field(false, false, 0), null);
+        Button field = mineFieldCreator.createField(new Cell(false, false, 0), null);
 
         assertThat(field.getStyle()).isEqualTo("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
         assertThat(field.getPrefHeight()).isEqualTo(35);
@@ -33,7 +34,7 @@ public class MineFieldCreatorTest {
 
     @Test
     public void createCoveredEmptyField(){
-        Button field = mineFieldCreator.createField(new Field(true, false, 0), emptyMouseHandler);
+        Button field = mineFieldCreator.createField(new Cell(true, false, 0), emptyMouseHandler);
 
         assertThat(field.getStyle()).isEqualTo("-fx-background-radius: 0;");
         assertThat(field.getPrefHeight()).isEqualTo(35);
@@ -45,7 +46,7 @@ public class MineFieldCreatorTest {
 
     @Test
     public void createUncoveredFieldWithSurroundingMines(){
-        Button field = mineFieldCreator.createField(new Field(false, false, 4), null);
+        Button field = mineFieldCreator.createField(new Cell(false, false, 4), null);
 
         assertThat(field.getStyle()).isEqualTo("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
         assertThat(field.getPrefHeight()).isEqualTo(35);
@@ -57,7 +58,7 @@ public class MineFieldCreatorTest {
 
     @Test
     public void createCoveredFieldWithSurroundingMines(){
-        Button field = mineFieldCreator.createField(new Field(true, false, 4), emptyMouseHandler);
+        Button field = mineFieldCreator.createField(new Cell(true, false, 4), emptyMouseHandler);
 
         assertThat(field.getStyle()).isEqualTo("-fx-background-radius: 0;");
         assertThat(field.getPrefHeight()).isEqualTo(35);
@@ -70,7 +71,7 @@ public class MineFieldCreatorTest {
 
     @Test
     public void createUncoveredMineField(){
-        Button field = mineFieldCreator.createField(new Field(false, true, 4), null);
+        Button field = mineFieldCreator.createField(new Cell(false, true, 4), null);
 
         assertThat(field.getStyle()).isEqualTo("-fx-opacity: 1;-fx-background-color: lightblue;-fx-background-radius: 0;");
         assertThat(field.getPrefHeight()).isEqualTo(35);
@@ -82,7 +83,7 @@ public class MineFieldCreatorTest {
 
     @Test
     public void createCoveredMineField(){
-        Button field = mineFieldCreator.createField(new Field(true, true, 4), emptyMouseHandler);
+        Button field = mineFieldCreator.createField(new Cell(true, true, 4), emptyMouseHandler);
 
         assertThat(field.getStyle()).isEqualTo("-fx-background-radius: 0;");
         assertThat(field.getPrefHeight()).isEqualTo(35);

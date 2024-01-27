@@ -1,6 +1,6 @@
 package com.labuhn.minesweeper.ui.controller;
 
-import com.labuhn.minesweeper.domain.Field;
+import com.labuhn.minesweeper.domain.Cell;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Control;
@@ -33,12 +33,12 @@ public class MineSweeperController {
         this.width = width;
         this.height = height;
     }
-    public void render(List<Field> fields) {
+    public void render(List<Cell> cells) {
             for (int x = 0; x < height; x++) {
                 Control[] row = new Control[width];
                 for (int y = 0; y < width; y++) {
-                    Field randomField = fields.get((int) (Math.random() * fields.size()));
-                    Control field = this.mineFieldCreator.createField(randomField,onFieldClicked(x, y));
+                    Cell randomCell = cells.get((int) (Math.random() * cells.size()));
+                    Control field = this.mineFieldCreator.createField(randomCell,onFieldClicked(x, y));
                     row[y] = field;
                 }
                 mineSweeperGrid.addRow(x, row);

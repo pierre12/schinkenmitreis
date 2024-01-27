@@ -1,13 +1,13 @@
 package com.labuhn.minesweeper.domain;
 
-public class Field {
+public class Cell {
 
     private boolean covered;
     private boolean isMine;
     private FlagStatus flagStatus;
     private int surroundingMines;
 
-    public Field(boolean covered, boolean isMine, int surroundingMines) {
+    public Cell(boolean covered, boolean isMine, int surroundingMines) {
         this.covered = covered;
         this.isMine = isMine;
         this.surroundingMines = surroundingMines;
