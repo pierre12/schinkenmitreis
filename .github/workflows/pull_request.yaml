@@ -12,7 +12,7 @@ jobs:
           java-version: '17'
           cache: 'gradle'
       - name: Install libgtk-3-0
-        run: apt install libgtk-3-0
+        run: sudo apt-get install -y libgtk-3-0
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
       - name: Run tests
