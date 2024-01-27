@@ -13,12 +13,11 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
-      - name: Set up Virtual Display (for Linux)
-        run: |
-          Xvfb :99 -screen 0 1920x1080x24 -nolisten unix &
+      - name: Install libgtk-3-0
+        run: sudo apt-get install -y libgtk-3-0
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
 
       - name: Run tests
-        run: ./gradlew test --no-daemon
+        run: Xvfb :99 -screen 0 1920x1080x24 -nolisten unix & ./gradlew test --no-daemon
