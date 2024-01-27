@@ -1,6 +1,5 @@
 package com.labuhn.minesweeper;
 
-import com.labuhn.minesweeper.domain.Cell;
 import com.labuhn.minesweeper.ui.controller.MineFieldCreator;
 import com.labuhn.minesweeper.ui.controller.MineSweeperController;
 import javafx.application.Application;
@@ -11,8 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class MineSweeperApplication extends Application {
 
@@ -23,7 +21,7 @@ public class MineSweeperApplication extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Mine Sweeper Deluxe");
         Scene scene = new Scene(root, 450, 450);
-        scene.getStylesheets().addAll(this.getClass().getResource("/com/labuhn/minesweeper/MineSweeper.css").toExternalForm());
+        scene.getStylesheets().addAll(Objects.requireNonNull(this.getClass().getResource("/com/labuhn/minesweeper/MineSweeper.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setWidth(700);
         primaryStage.setHeight(700);

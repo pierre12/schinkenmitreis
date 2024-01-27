@@ -29,8 +29,8 @@ public class MineSweeperController {
         this.mineFieldCreator = mineFieldCreator;
     }
 
-    public void startGame(int x, int y){
-        render(createDummyGrid(x,y));
+    public void startGame(int width, int height){
+        render(createDummyGrid(width,height));
     }
 
     private void render(Cell[][] grid) {
