@@ -9,10 +9,8 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          distribution: 'corretto'
-          java-package: jdk+fx
           java-version: '17'
-          cache: 'gradle'
+          java-package: jdk+fx
 
       - name: Set up Virtual Display (for Linux)
         run: |
