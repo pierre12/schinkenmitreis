@@ -3,6 +3,7 @@ package com.labuhn.minesweeper.ui.controller;
 import static org.assertj.core.api.Assertions.*;
 
 import com.labuhn.minesweeper.domain.Cell;
+import com.labuhn.minesweeper.domain.FlagStatus;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -10,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 
@@ -17,7 +19,9 @@ import org.testfx.framework.junit5.ApplicationExtension;
 @ExtendWith({MockitoExtension.class, ApplicationExtension.class})
 public class MineCellCreatorTest {
 
-    private final MineFieldCreator mineFieldCreator  = new MineFieldCreator();
+    private final IconProvider iconProvider = Mockito.mock(IconProvider.class);
+
+    private final MineFieldCreator mineFieldCreator  = new MineFieldCreator(iconProvider);
 
     private final EventHandler<MouseEvent>  emptyMouseHandler = event -> {};
 
@@ -77,6 +81,8 @@ public class MineCellCreatorTest {
 
     @Test
     public void createUncoveredMineField(){
+        ImageView expectedImageView = new ImageView();
+        Mockito.when(iconProvider.createMineImage(25,25)).thenReturn(expectedImageView);
         Label cell = mineFieldCreator.createCell(new Cell(false, true, 4), null);
 
         assertThat(cell.getMinHeight()).isEqualTo(25);
@@ -84,7 +90,8 @@ public class MineCellCreatorTest {
         assertThat(cell.getMinWidth()).isEqualTo(25);
         assertThat(cell.getMaxHeight()).isEqualTo(25);
         assertThat(cell.getId()).isEqualTo("bomb");
-        assertThat(cell.getGraphic().getClass()).isEqualTo(ImageView.class);
+        Mockito.verify(iconProvider,Mockito.times(1)).createMineImage(25,25);
+        assertThat(cell.getGraphic()).isEqualTo(expectedImageView);
         assertThat(cell.getOnMouseClicked()).isNull();
     }
 
@@ -96,6 +103,46 @@ public class MineCellCreatorTest {
         assertThat(cell.getMaxHeight()).isEqualTo(25);
         assertThat(cell.getMinWidth()).isEqualTo(25);
         assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getText()).isEqualTo("");
+        assertThat(cell.getId()).isEqualTo("covered");
+        assertThat(cell.getOnMouseClicked()).isEqualTo(emptyMouseHandler);
+    }
+
+    @Test
+    public void createMarkAsMineField(){
+        ImageView expectedImageView = new ImageView();
+        Mockito.when(iconProvider.createMineMarkerImage(25,25)).thenReturn(expectedImageView);
+        Cell cellMarkedAsMine = new Cell(true, true, 4);
+        cellMarkedAsMine.setFlagStatus(FlagStatus.MARKED_AS_MINE);
+
+        Label cell  = mineFieldCreator.createCell(cellMarkedAsMine, emptyMouseHandler);
+
+        assertThat(cell.getMinHeight()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getMinWidth()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        Mockito.verify(iconProvider,Mockito.times(1)).createMineMarkerImage(25,25);
+        assertThat(cell.getGraphic()).isEqualTo(expectedImageView);
+        assertThat(cell.getText()).isEqualTo("");
+        assertThat(cell.getId()).isEqualTo("covered");
+        assertThat(cell.getOnMouseClicked()).isEqualTo(emptyMouseHandler);
+    }
+
+    @Test
+    public void createMarkAsUnknownField(){
+        ImageView expectedImageView = new ImageView();
+        Mockito.when(iconProvider.createQuestionMarkMarkerImage(25,25)).thenReturn(expectedImageView);
+        Cell cellMarkedAsMine = new Cell(true, true, 4);
+        cellMarkedAsMine.setFlagStatus(FlagStatus.MARKED_AS_UNKNOWN);
+
+        Label cell  = mineFieldCreator.createCell(cellMarkedAsMine, emptyMouseHandler);
+
+        assertThat(cell.getMinHeight()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        assertThat(cell.getMinWidth()).isEqualTo(25);
+        assertThat(cell.getMaxHeight()).isEqualTo(25);
+        Mockito.verify(iconProvider,Mockito.times(1)).createQuestionMarkMarkerImage(25,25);
+        assertThat(cell.getGraphic()).isEqualTo(expectedImageView);
         assertThat(cell.getText()).isEqualTo("");
         assertThat(cell.getId()).isEqualTo("covered");
         assertThat(cell.getOnMouseClicked()).isEqualTo(emptyMouseHandler);

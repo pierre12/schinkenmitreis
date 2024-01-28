@@ -32,7 +32,6 @@ public class MineSweeperControllerTest {
     @Captor
     private ArgumentCaptor<Label[]> captor;
 
-
     @BeforeEach
     public void setup() {
         mineSweeperController.setMineFieldCreator(mineFieldCreator);

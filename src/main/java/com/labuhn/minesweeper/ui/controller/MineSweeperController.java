@@ -1,6 +1,7 @@
 package com.labuhn.minesweeper.ui.controller;
 
 import com.labuhn.minesweeper.domain.Cell;
+import com.labuhn.minesweeper.domain.FlagStatus;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -60,6 +61,12 @@ public class MineSweeperController {
         cells.add(new Cell(true, false, 0));
         cells.add(new Cell(true, true, 6));
         cells.add(new Cell(true, false, 6));
+        Cell markedAsMine = new Cell(true, false, 6);
+        markedAsMine.setFlagStatus(FlagStatus.MARKED_AS_MINE);
+        cells.add(markedAsMine);
+        Cell markedAsUnknown = new Cell(true, false, 6);
+        markedAsUnknown.setFlagStatus(FlagStatus.MARKED_AS_UNKNOWN);
+        cells.add(markedAsUnknown);
 
         for (int y = 0;  y < height; y++){
             for (int x = 0;  x < width; x++){
