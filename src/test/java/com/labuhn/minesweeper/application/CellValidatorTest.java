@@ -16,7 +16,7 @@ class CellValidatorTest {
     @Test
     void shouldNotThrowExceptionForValidField(){
         Cell cell = new Cell(true,true,0);
-        Assertions.assertThatNoException().isThrownBy(() -> CellValidator.validateCell(cell));
+        Assertions.assertThatNoException().isThrownBy(() -> CellValidator.validateCellToBeUncovered(cell));
     }
 
     @ParameterizedTest
@@ -24,7 +24,7 @@ class CellValidatorTest {
     void shouldThrowExceptionForInvalidSurroundingMines(int surroundingMines){
         Cell cell = new Cell(true,true,surroundingMines);
 
-        Assertions.assertThatThrownBy(() -> CellValidator.validateCell(cell))
+        Assertions.assertThatThrownBy(() -> CellValidator.validateCellForMineCount(cell))
                 .isInstanceOf(InvalidParameterException.class)
                 .hasMessageContaining("Surrounding Mines")
                 .hasMessageContaining(Integer.toString(surroundingMines));
@@ -33,27 +33,18 @@ class CellValidatorTest {
     @ParameterizedTest
     @MethodSource("getMarkedStatuses")
     void shouldThrowExceptionForUncoveredFieldWhichIsMarked(FlagStatus flagStatus){
-        Cell cell = new Cell(false,true,0);
-        cell.setFlagStatus(flagStatus);
-        Assertions.assertThatThrownBy(() -> CellValidator.validateCell(cell))
-                .isInstanceOf(InvalidParameterException.class)
-                .hasMessageContaining("Uncovered cell")
-                .hasMessageContaining(flagStatus.toString());
-    }
-
-    @ParameterizedTest
-    @MethodSource("getMarkedStatuses")
-    void shouldNotThrowExceptionForCoveredFieldWhichIsMarked(FlagStatus flagStatus){
         Cell cell = new Cell(true,true,0);
         cell.setFlagStatus(flagStatus);
-        Assertions.assertThatNoException().isThrownBy(() -> CellValidator.validateCell(cell));
+        Assertions.assertThatThrownBy(() -> CellValidator.validateCellToBeUncovered(cell))
+                .isInstanceOf(InvalidParameterException.class)
+                .hasMessageContaining("Cannot uncover a marked cell");
     }
 
     @ParameterizedTest
     @ValueSource(booleans = {false,true})
     void shouldNotThrowExceptionForUnMarkedFieldInEitherCoveredOrUncovered(boolean covered){
         Cell cell = new Cell(covered,true,0);
-        Assertions.assertThatNoException().isThrownBy(() -> CellValidator.validateCell(cell));
+        Assertions.assertThatNoException().isThrownBy(() -> CellValidator.validateCellToBeUncovered(cell));
     }
 
     public static Stream<FlagStatus> getMarkedStatuses(){

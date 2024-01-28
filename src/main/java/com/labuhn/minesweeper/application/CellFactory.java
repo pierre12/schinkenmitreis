@@ -6,7 +6,7 @@ public class CellFactory {
 
     public Cell createCell(boolean isMine, int surroundingMines){
         Cell cell = new Cell(true,isMine, surroundingMines);
-        CellValidator.validateCell(cell);
+        CellValidator.validateCellForMineCount(cell);
         return cell;
     }
 }
