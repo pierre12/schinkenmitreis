@@ -9,10 +9,13 @@ import javafx.scene.input.MouseEvent;
 
 public class MineFieldCreator {
 
+    private final int WIDTH_PX = 25;
+    private final int HEIGHT_PX = 25;
     private final IconProvider iconProvider;
 
     public MineFieldCreator(IconProvider iconProvider){
         this.iconProvider = iconProvider;
+
     }
 
     public Label createCell(Cell cell, EventHandler<MouseEvent> mouseEventHandler) {
@@ -24,9 +27,9 @@ public class MineFieldCreator {
         label.setId("covered");
         label.setOnMouseClicked(mouseEventHandler);
         if (cell.getFlagStatus() == FlagStatus.MARKED_AS_MINE) {
-            label.setGraphic(this.iconProvider.createMineMarkerImage( 25, 25));
+            label.setGraphic(this.iconProvider.createMineMarkerImage(WIDTH_PX, HEIGHT_PX));
         } else if (cell.getFlagStatus() == FlagStatus.MARKED_AS_UNKNOWN) {
-            label.setGraphic(this.iconProvider.createQuestionMarkMarkerImage( 25, 25));
+            label.setGraphic(this.iconProvider.createQuestionMarkMarkerImage(  WIDTH_PX, HEIGHT_PX));
         }
 
         return label;
@@ -43,7 +46,7 @@ public class MineFieldCreator {
 
         if (cell.isMine()) {
             label.setId("bomb");
-            label.setGraphic(this.iconProvider.createMineImage( 25, 25));
+            label.setGraphic(this.iconProvider.createMineImage( WIDTH_PX, HEIGHT_PX));
         }
 
         return label;
@@ -51,10 +54,10 @@ public class MineFieldCreator {
 
     private Label createStandardLabel() {
         Label label = new Label();
-        label.setMinWidth(25);
-        label.setMaxWidth(25);
-        label.setMinHeight(25);
-        label.setMaxHeight(25);
+        label.setMinWidth(WIDTH_PX);
+        label.setMaxWidth(WIDTH_PX);
+        label.setMinHeight(HEIGHT_PX);
+        label.setMaxHeight(HEIGHT_PX);
         label.setAlignment(Pos.CENTER);
         return label;
     }
