@@ -15,7 +15,6 @@ public class MineFieldCreator {
 
     public MineFieldCreator(IconProvider iconProvider){
         this.iconProvider = iconProvider;
-
     }
 
     public Label createCell(Cell cell, EventHandler<MouseEvent> mouseEventHandler) {
@@ -29,7 +28,7 @@ public class MineFieldCreator {
         if (cell.getFlagStatus() == FlagStatus.MARKED_AS_MINE) {
             label.setGraphic(this.iconProvider.createMineMarkerImage(WIDTH_PX, HEIGHT_PX));
         } else if (cell.getFlagStatus() == FlagStatus.MARKED_AS_UNKNOWN) {
-            label.setGraphic(this.iconProvider.createQuestionMarkMarkerImage(  WIDTH_PX, HEIGHT_PX));
+            label.setGraphic(this.iconProvider.createQuestionMarkMarkerImage(WIDTH_PX, HEIGHT_PX));
         }
 
         return label;
@@ -46,7 +45,7 @@ public class MineFieldCreator {
 
         if (cell.isMine()) {
             label.setId("bomb");
-            label.setGraphic(this.iconProvider.createMineImage( WIDTH_PX, HEIGHT_PX));
+            label.setGraphic(this.iconProvider.createMineImage(WIDTH_PX, HEIGHT_PX));
         }
 
         return label;
