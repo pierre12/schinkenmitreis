@@ -2,6 +2,7 @@ package com.labuhn.minesweeper.ui.controller;
 
 import com.labuhn.minesweeper.domain.Cell;
 import com.labuhn.minesweeper.domain.FlagStatus;
+import com.labuhn.minesweeper.ui.time.Clock;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,8 +16,19 @@ import java.util.List;
 public class MineSweeperController {
     @FXML
     private GridPane mineSweeperGrid;
+    @FXML
+    private Label timeLabel;
 
     private MineFieldCreator mineFieldCreator;
+
+    private Clock clock;
+
+    public MineSweeperController() {
+    }
+
+    private void updateTime(int elapsedTime) {
+        this.timeLabel.setText("Time: " + elapsedTime);
+    }
 
     private EventHandler<MouseEvent> onFieldClicked(int x, int y) {
         return event -> {
@@ -26,12 +38,18 @@ public class MineSweeperController {
         };
     }
 
-    public void setMineFieldCreator(MineFieldCreator mineFieldCreator){
+    public void setMineFieldCreator(MineFieldCreator mineFieldCreator) {
         this.mineFieldCreator = mineFieldCreator;
     }
 
-    public void startGame(int width, int height){
-        render(createDummyGrid(width,height));
+    public void startGame(int width, int height) {
+        this.clock = this.createClock();
+        this.clock.start();
+        render(createDummyGrid(width, height));
+    }
+
+    protected Clock createClock() {
+        return new Clock(this::updateTime);
     }
 
     private void render(Cell[][] grid) {
@@ -39,13 +57,13 @@ public class MineSweeperController {
             Cell[] gridRow = grid[y];
             Label[] row = new Label[gridRow.length];
             for (int x = 0; x < gridRow.length; x++) {
-                row[x] = this.mineFieldCreator.createCell(gridRow[x],onFieldClicked(x, y));
+                row[x] = this.mineFieldCreator.createCell(gridRow[x], onFieldClicked(x, y));
             }
-            mineSweeperGrid.addRow(y,row);
+            this.mineSweeperGrid.addRow(y, row);
         }
     }
 
-    private static Cell[][] createDummyGrid(int width,int height) {
+    private static Cell[][] createDummyGrid(int width, int height) {
         Cell[][] grid = new Cell[height][width];
         List<Cell> cells = new ArrayList<>();
         cells.add(new Cell(false, true, 0));
@@ -68,9 +86,9 @@ public class MineSweeperController {
         markedAsUnknown.setFlagStatus(FlagStatus.MARKED_AS_UNKNOWN);
         cells.add(markedAsUnknown);
 
-        for (int y = 0;  y < height; y++){
-            for (int x = 0;  x < width; x++){
-                grid[y][x]= cells.get((int)(Math.random()*cells.size()));
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                grid[y][x] = cells.get((int) (Math.random() * cells.size()));
             }
         }
 

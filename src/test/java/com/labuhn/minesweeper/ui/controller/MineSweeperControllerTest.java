@@ -3,6 +3,7 @@ package com.labuhn.minesweeper.ui.controller;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.labuhn.minesweeper.ui.time.Clock;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,11 @@ public class MineSweeperControllerTest {
     @Mock
     private MineFieldCreator mineFieldCreator;
 
+    @Mock
+    private Clock clock;
+
     @InjectMocks
+    @Spy
     private MineSweeperController mineSweeperController;
 
     @Captor
@@ -35,6 +40,18 @@ public class MineSweeperControllerTest {
     @BeforeEach
     public void setup() {
         mineSweeperController.setMineFieldCreator(mineFieldCreator);
+
+        doReturn(clock).when(mineSweeperController).createClock();
+    }
+
+    @Test
+    public void startsClockWhenANewGameStarts() {
+        Label cell = new Label("1");
+        when(mineFieldCreator.createCell(Mockito.any(), Mockito.any())).thenReturn(cell);
+
+        mineSweeperController.startGame(10,1);
+
+        verify(clock,times(1)).start();
     }
 
     @Test
