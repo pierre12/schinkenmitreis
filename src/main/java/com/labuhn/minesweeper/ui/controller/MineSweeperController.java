@@ -3,6 +3,7 @@ package com.labuhn.minesweeper.ui.controller;
 import com.labuhn.minesweeper.domain.Cell;
 import com.labuhn.minesweeper.domain.FlagStatus;
 import com.labuhn.minesweeper.ui.time.Clock;
+import com.labuhn.minesweeper.ui.time.TimeUtil;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -27,14 +28,13 @@ public class MineSweeperController {
     }
 
     private void updateTime(int elapsedTime) {
-        this.timeLabel.setText("Time: " + elapsedTime);
+        this.timeLabel.setText(TimeUtil.toTimeFormat(elapsedTime));
     }
 
     private EventHandler<MouseEvent> onFieldClicked(int x, int y) {
         return event -> {
             MouseButton pressedButton = event.getButton();
             System.out.printf("Field %s:%s pressed with button %s%n", x, y, pressedButton);
-            // Talk to backend and rerender ui
         };
     }
 
