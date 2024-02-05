@@ -16,7 +16,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith({MockitoExtension.class, ApplicationExtension.class})
 public class ClockTest {
 
-
     @Test
     public void testEventHandlerIsCalledWhenClockIsRunning() throws InterruptedException {
         AtomicInteger elapsedTime = new AtomicInteger(-1);
