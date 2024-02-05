@@ -9,7 +9,7 @@ public class Clock {
 
     private final TimeUpdatedEventHandler eventHandler;
     private int elapsedTimeInSeconds;
-    private Timeline timeline;
+    Timeline timeline;
 
     public Clock(TimeUpdatedEventHandler eventHandler) {
         this.eventHandler = eventHandler;

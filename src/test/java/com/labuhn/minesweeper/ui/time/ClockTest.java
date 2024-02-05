@@ -8,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 
-import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -29,43 +28,35 @@ public class ClockTest {
     }
 
     @Test
-    public void testStartClockTwiceDoesNothing() throws NoSuchFieldException, IllegalAccessException {
+    public void testStartClockTwiceDoesNothing() {
         Clock clock = new Clock((e) -> {});
-        Timeline timeline = mock(Timeline.class);
-        Field timelineField = Clock.class.getDeclaredField("timeline");
-        timelineField.setAccessible(true);
-        timelineField.set(clock,timeline);
+        clock.timeline = mock(Timeline.class);
 
         clock.start();
 
-        verify(timeline, times(0)).setCycleCount(Animation.INDEFINITE);
-        verify(timeline, times(0)).play();
-        assertThat(timelineField.get(clock)).isEqualTo(timeline);
+        verify(clock.timeline, times(0)).setCycleCount(Animation.INDEFINITE);
+        verify(clock.timeline, times(0)).play();
     }
 
     @Test
-    public void testStopsTheClock() throws NoSuchFieldException, IllegalAccessException {
+    public void testStopsTheClock() {
         Clock clock = new Clock((e) -> {});
-        Timeline timeline = mock(Timeline.class);
-        Field timelineField = Clock.class.getDeclaredField("timeline");
-        timelineField.setAccessible(true);
-        timelineField.set(clock,timeline);
+        Timeline timelineMock = mock(Timeline.class);
+        clock.timeline = timelineMock;
 
         clock.stop();
 
-        verify(timeline, times(1)).stop();
-        assertThat(timelineField.get(clock)).isEqualTo(null);
+        verify(timelineMock, times(1)).stop();
+        assertThat(clock.timeline).isEqualTo(null);
     }
 
     @Test
-    public void testStopTheWatchBeforeStartHasNoEffect() throws NoSuchFieldException, IllegalAccessException {
+    public void testStopTheWatchBeforeStartHasNoEffect() {
         Clock clock = new Clock((e) -> {});
-        Field timelineField = Clock.class.getDeclaredField("timeline");
-        timelineField.setAccessible(true);
 
         clock.stop();
 
-        assertThat(timelineField.get(clock)).isNull();
+        assertThat(clock.timeline).isNull();
     }
 
 }

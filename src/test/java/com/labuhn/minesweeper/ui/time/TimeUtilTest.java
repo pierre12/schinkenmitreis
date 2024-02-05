@@ -3,49 +3,30 @@ package com.labuhn.minesweeper.ui.time;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 public class TimeUtilTest {
 
-    @Test
-    public void testReturnTimeFormatForElapsedTimeSmallerThan10Seconds(){
-        String actual = TimeUtil.toTimeFormat(9);
+    @ParameterizedTest
+    @MethodSource("getSecondsWithRespectiveTimeFormats")
+    public void testElapsedTimeToTimeFormat(int elapsedTime, String expectedTimeFormat){
+        String actual = TimeUtil.toTimeFormat(elapsedTime);
 
-        assertThat(actual).isEqualTo("00:09");
+        assertThat(actual).isEqualTo(expectedTimeFormat);
     }
 
-    @Test
-    public void testReturnTimeFormatForElapsedTimeGreaterThan10SecondsButSmallerThan1Minute(){
-        String actual = TimeUtil.toTimeFormat(58);
-
-        assertThat(actual).isEqualTo("00:58");
+    public static Stream<Arguments> getSecondsWithRespectiveTimeFormats(){
+        return Stream.of(Arguments.of(9,"00:09"),
+                Arguments.of(15,"00:15"),
+                Arguments.of(60,"01:00"),
+                Arguments.of(75,"01:15"),
+                Arguments.of(600,"10:00"),
+                Arguments.of(666,"11:06"),
+                Arguments.of(3720,"62:00")
+        );
     }
-
-    @Test
-    public void testReturnTimeFormatElapsedTimeEquals1Minute(){
-        String actual = TimeUtil.toTimeFormat(60);
-
-        assertThat(actual).isEqualTo("01:00");
-    }
-
-    @Test
-    public void testReturnTimeFormatElapsedTimeEquals1MinuteAndSomeSeconds(){
-        String actual = TimeUtil.toTimeFormat(63);
-
-        assertThat(actual).isEqualTo("01:03");
-    }
-
-    @Test
-    public void testReturnTimeFormatElapsedTimeEquals10Minutes(){
-        String actual = TimeUtil.toTimeFormat(600);
-
-        assertThat(actual).isEqualTo("10:00");
-    }
-
-    @Test
-    public void testReturnTimeFormatElapsedTimeEquals10MinutesAndSomeSeconds(){
-        String actual = TimeUtil.toTimeFormat(666);
-
-        assertThat(actual).isEqualTo("11:06");
-    }
-
 }
