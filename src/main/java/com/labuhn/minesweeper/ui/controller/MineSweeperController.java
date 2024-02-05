@@ -24,20 +24,6 @@ public class MineSweeperController {
 
     private Clock clock;
 
-    public MineSweeperController() {
-    }
-
-    private void updateTime(int elapsedTime) {
-        this.timeLabel.setText(TimeUtil.toTimeFormat(elapsedTime));
-    }
-
-    private EventHandler<MouseEvent> onFieldClicked(int x, int y) {
-        return event -> {
-            MouseButton pressedButton = event.getButton();
-            System.out.printf("Field %s:%s pressed with button %s%n", x, y, pressedButton);
-        };
-    }
-
     public void setMineFieldCreator(MineFieldCreator mineFieldCreator) {
         this.mineFieldCreator = mineFieldCreator;
     }
@@ -61,6 +47,17 @@ public class MineSweeperController {
             }
             this.mineSweeperGrid.addRow(y, row);
         }
+    }
+
+    private void updateTime(int elapsedTimeInSeconds) {
+        this.timeLabel.setText(TimeUtil.toTimeFormat(elapsedTimeInSeconds));
+    }
+
+    private EventHandler<MouseEvent> onFieldClicked(int x, int y) {
+        return event -> {
+            MouseButton pressedButton = event.getButton();
+            System.out.printf("Field %s:%s pressed with button %s%n", x, y, pressedButton);
+        };
     }
 
     private static Cell[][] createDummyGrid(int width, int height) {

@@ -2,9 +2,7 @@ package com.labuhn.minesweeper.ui.time;
 
 public class TimeUtil {
 
-    private TimeUtil(){
-
-    }
+    private TimeUtil(){}
 
     public static String toTimeFormat(int elapsedTimeInSeconds){
         int seconds = elapsedTimeInSeconds % 60;
