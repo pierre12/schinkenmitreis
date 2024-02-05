@@ -2,12 +2,14 @@ package com.labuhn.minesweeper.ui.time;
 
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import java.lang.reflect.Field;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,14 +19,13 @@ import static org.mockito.Mockito.*;
 public class ClockTest {
 
     @Test
-    public void testEventHandlerIsCalledWhenClockIsRunning() throws InterruptedException {
+    public void testEventHandlerIsCalledWhenClockIsRunning() {
         AtomicInteger elapsedTime = new AtomicInteger(-1);
         Clock clock = new Clock(elapsedTime::set);
 
         clock.start();
-        Thread.sleep(2101);
 
-        assertThat(elapsedTime.get()).isEqualTo(2);
+        Awaitility.await().atMost(3, TimeUnit.SECONDS).untilAsserted(() -> assertThat(elapsedTime.get()).isEqualTo(2) );
     }
 
     @Test
