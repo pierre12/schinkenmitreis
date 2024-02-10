@@ -24,14 +24,15 @@ public class FieldController {
         return field;
     }
     public FlagStatus markCell(int rowPosition, int columnPosition){
-        //TODO interate through statuses
-       return field.getCells()[rowPosition][columnPosition].getFlagStatus();
+        FlagStatus flagStatus = field.getCells()[rowPosition][columnPosition].getFlagStatus();
+        return FlagStatus.next(flagStatus);
     }
 
     public void uncoverCell(int row,int column){
         Cell cell = field.getCells()[row][column];
         CellValidator.validateCellToBeUncovered(cell);
         field.getCells()[row][column].setCovered(false);
+        //TODO Uncover Surroundings which until field has surroundingMines
     }
 
     public void initializeField(int rowCount,int columnCount,int mineCount){
