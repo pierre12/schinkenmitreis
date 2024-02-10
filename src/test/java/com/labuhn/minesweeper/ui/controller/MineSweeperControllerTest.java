@@ -4,6 +4,9 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.labuhn.minesweeper.ui.time.Clock;
+import com.sun.javafx.collections.ObservableListWrapper;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,8 +45,16 @@ public class MineSweeperControllerTest {
     public void setup() {
         mineSweeperController.setMineFieldCreator(mineFieldCreator);
 
-        doReturn(clock).when(mineSweeperController).createClock();
+//        doReturn(clock).when(mineSweeperController).createClock();
+        doReturn(new ObservableListWrapper<>(Collections.emptyList())).when(mineSweeperGrid).getChildren();
     }
+
+//    @Test
+//    public void initializesClock(){
+//        mineSweeperController.initialize();
+//
+//        verify(mineSweeperController,times(1)).createClock();
+//    }
 
     @Test
     public void startsClockWhenANewGameStarts() {
