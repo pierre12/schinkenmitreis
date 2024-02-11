@@ -11,27 +11,27 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labuhn.minesweeper.ui.controller.MineSweeperController">
    <VBox layoutX="7.0" layoutY="6.0" prefHeight="50" prefWidth="100.0">
-      <children>
-         <HBox id="header" styleClass="header" stylesheets="@MineSweeper.css">
-            <children>
-               <Button id="restart-button" fx:id="restartButton" maxHeight="50.0" maxWidth="104.0" minHeight="50.0" minWidth="0.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="104.0" text="Smiley">
-                  <HBox.margin>
-                     <Insets left="250.0" />
-                  </HBox.margin></Button>
-               <Label id="time" fx:id="timeLabel" alignment="CENTER" maxHeight="50.0" maxWidth="200.0" prefHeight="27.0" prefWidth="100" stylesheets="@MineSweeper.css" text="00:00">
-                  <font>
-                     <Font name="Comic Sans MS Bold" size="30.0" />
-                  </font>
-                  <HBox.margin>
-                     <Insets left="50.0" />
-                  </HBox.margin>
-               </Label>
-            </children>
-         </HBox>
-         <GridPane fx:id="mineSweeperGrid" alignment="CENTER" pickOnBounds="false">
-            <VBox.margin>
-               <Insets top="30.0" />
-            </VBox.margin></GridPane>
-      </children>
+      <HBox id="header">
+         <Button id="restart-button" fx:id="restartButton" maxHeight="50.0" maxWidth="50" minHeight="50.0"
+                 mnemonicParsing="false" prefHeight="50.0" prefWidth="104.0">
+            <HBox.margin>
+               <Insets left="250.0"/>
+            </HBox.margin>
+         </Button>
+         <Label id="time" fx:id="timeLabel" alignment="CENTER" maxHeight="50.0" maxWidth="200.0" prefHeight="27.0"
+                prefWidth="100" stylesheets="@MineSweeper.css" text="00:00">
+            <font>
+               <Font name="Comic Sans MS Bold" size="30.0"/>
+            </font>
+            <HBox.margin>
+               <Insets left="50.0"/>
+            </HBox.margin>
+         </Label>
+      </HBox>
+      <GridPane fx:id="mineSweeperGrid" alignment="CENTER" pickOnBounds="false">
+         <VBox.margin>
+            <Insets top="30.0"/>
+         </VBox.margin>
+      </GridPane>
    </VBox>
 </AnchorPane>

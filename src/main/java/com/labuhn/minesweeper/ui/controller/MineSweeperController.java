@@ -21,12 +21,17 @@ public class MineSweeperController {
     @FXML
     private Label timeLabel;
     @FXML
-    private Button restartButton;
+    Button restartButton;
 
     private MineFieldCreator mineFieldCreator;
-
     private Clock clock;
+    private IconCreator iconProvider;
 
+
+    public void setIconProvider(IconCreator iconCreator){
+        this.iconProvider = iconCreator;
+        this.restartButton.setGraphic(iconProvider.createImage(Icons.RESTART_ICON,25,25));
+    }
     public void setMineFieldCreator(MineFieldCreator mineFieldCreator) {
         this.mineFieldCreator = mineFieldCreator;
     }
