@@ -7,11 +7,11 @@ plugins {
 javafx {
     version = "17.0.10"
     modules = ['javafx.base','javafx.controls', 'javafx.fxml']
-
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+mainClassName = 'com.labuhn.minesweeper.MineSweeperApplication'
 
 repositories {
     mavenCentral()
