@@ -36,7 +36,6 @@ public class MineSweeperControllerTest {
     @Mock
     private Clock clock;
 
-    @Mock
     private IconCreator iconCreator;
 
     @Spy
@@ -51,11 +50,11 @@ public class MineSweeperControllerTest {
     public void setup() {
         mineSweeperController.setMineFieldCreator(mineFieldCreator);
         mineSweeperController.restartButton = spy(Button.class);
+        doNothing().when(mineSweeperController.restartButton).setGraphic(Mockito.any());
         Platform.runLater(()-> MockitoAnnotations.openMocks(mineSweeperController));
         lenient().when(mineSweeperGrid.getChildren()).thenReturn(new ObservableListWrapper<>(Collections.emptyList()));
-        mineSweeperController.setIconProvider(iconCreator);
-
-
+        iconCreator =mock(IconCreator.class);
+        mineSweeperController.setIconCreator(iconCreator);
     }
 
     @Test

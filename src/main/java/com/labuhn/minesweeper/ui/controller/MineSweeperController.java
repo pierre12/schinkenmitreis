@@ -25,12 +25,12 @@ public class MineSweeperController {
 
     private MineFieldCreator mineFieldCreator;
     private Clock clock;
-    private IconCreator iconProvider;
+    private IconCreator iconCreator;
 
 
-    public void setIconProvider(IconCreator iconCreator){
-        this.iconProvider = iconCreator;
-        this.restartButton.setGraphic(iconProvider.createImage(Icons.RESTART_ICON,25,25));
+    public void setIconCreator(IconCreator iconCreator){
+        this.iconCreator = iconCreator;
+        this.restartButton.setGraphic(this.iconCreator.createImage(Icons.RESTART_ICON,25,25));
     }
     public void setMineFieldCreator(MineFieldCreator mineFieldCreator) {
         this.mineFieldCreator = mineFieldCreator;

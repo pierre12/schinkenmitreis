@@ -23,7 +23,7 @@ public class MineSweeperApplication extends Application {
         MineSweeperController controller = loader.getController();
         IconCreator iconProvider = new IconCreator();
         controller.setMineFieldCreator(new MineFieldCreator(iconProvider));
-        controller.setIconProvider(iconProvider);
+        controller.setIconCreator(iconProvider);
         controller.startGame(16,16);
 
 
