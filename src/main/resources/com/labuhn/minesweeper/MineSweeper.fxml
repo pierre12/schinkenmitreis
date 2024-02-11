@@ -6,7 +6,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labuhn.minesweeper.ui.controller.MineSweeperController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labuhn.minesweeper.ui.controller.MineSweeperController">
    <VBox>
       <Label fx:id="timeLabel"  id="time">00:00</Label>
       <GridPane fx:id="mineSweeperGrid" alignment="CENTER" pickOnBounds="false">
