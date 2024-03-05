@@ -11,9 +11,9 @@ public class MineFieldCreator {
 
     private final int WIDTH_PX = 25;
     private final int HEIGHT_PX = 25;
-    private final IconProvider iconProvider;
+    private final IconCreator iconProvider;
 
-    public MineFieldCreator(IconProvider iconProvider){
+    public MineFieldCreator(IconCreator iconProvider){
         this.iconProvider = iconProvider;
     }
 
@@ -26,9 +26,9 @@ public class MineFieldCreator {
         label.setId("covered");
         label.setOnMouseClicked(mouseEventHandler);
         if (cell.getFlagStatus() == FlagStatus.MARKED_AS_MINE) {
-            label.setGraphic(this.iconProvider.createMineMarkerImage(WIDTH_PX, HEIGHT_PX));
+            label.setGraphic(this.iconProvider.createImage(Icons.MINE_MARKER,WIDTH_PX, HEIGHT_PX));
         } else if (cell.getFlagStatus() == FlagStatus.MARKED_AS_UNKNOWN) {
-            label.setGraphic(this.iconProvider.createQuestionMarkMarkerImage(WIDTH_PX, HEIGHT_PX));
+            label.setGraphic(this.iconProvider.createImage(Icons.QUESTION_MARK_MARKER,WIDTH_PX, HEIGHT_PX));
         }
 
         return label;
@@ -45,7 +45,7 @@ public class MineFieldCreator {
 
         if (cell.isMine()) {
             label.setId("bomb");
-            label.setGraphic(this.iconProvider.createMineImage(WIDTH_PX, HEIGHT_PX));
+            label.setGraphic(this.iconProvider.createImage(Icons.MINE,WIDTH_PX, HEIGHT_PX));
         }
 
         return label;

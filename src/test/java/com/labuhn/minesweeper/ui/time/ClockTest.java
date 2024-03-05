@@ -18,6 +18,27 @@ import static org.mockito.Mockito.*;
 public class ClockTest {
 
     @Test
+    public void testEventHandlerIsCalledWhenClockIsStarting() {
+        AtomicInteger elapsedTime = new AtomicInteger(-6);
+        Clock clock = new Clock(elapsedTime::set);
+
+        clock.start();
+
+        assertThat(elapsedTime.get()).isEqualTo(0);
+    }
+
+    @Test
+    public void testEventHandlerIsNotCalledWhenClockIsStartingButClockAlreadyRunning() {
+        AtomicInteger elapsedTime = new AtomicInteger(10);
+        Clock clock = new Clock(elapsedTime::set);
+        clock.timeline = new Timeline();
+
+        clock.start();
+
+        assertThat(elapsedTime.get()).isEqualTo(10);
+    }
+
+    @Test
     public void testEventHandlerIsCalledWhenClockIsRunning() {
         AtomicInteger elapsedTime = new AtomicInteger(-1);
         Clock clock = new Clock(elapsedTime::set);
