@@ -19,7 +19,7 @@ import org.testfx.framework.junit5.ApplicationExtension;
 @ExtendWith({MockitoExtension.class, ApplicationExtension.class})
 public class MineCellCreatorTest {
 
-    private final IconProvider iconProvider = mock(IconProvider.class);
+    private final IconCreator iconProvider = mock(IconCreator.class);
 
     private final MineFieldCreator mineFieldCreator  = new MineFieldCreator(iconProvider);
 
@@ -82,7 +82,7 @@ public class MineCellCreatorTest {
     @Test
     public void createUncoveredMineField(){
         ImageView expectedImageView = new ImageView();
-        when(iconProvider.createMineImage(25,25)).thenReturn(expectedImageView);
+        when(iconProvider.createImage(Icons.MINE,25,25)).thenReturn(expectedImageView);
         Label cell = mineFieldCreator.createCell(new Cell(false, true, 4), null);
 
         assertThat(cell.getMinHeight()).isEqualTo(25);
@@ -90,7 +90,7 @@ public class MineCellCreatorTest {
         assertThat(cell.getMinWidth()).isEqualTo(25);
         assertThat(cell.getMaxHeight()).isEqualTo(25);
         assertThat(cell.getId()).isEqualTo("bomb");
-        verify(iconProvider, times(1)).createMineImage(25,25);
+        verify(iconProvider, times(1)).createImage(Icons.MINE,25,25);
         assertThat(cell.getGraphic()).isEqualTo(expectedImageView);
         assertThat(cell.getOnMouseClicked()).isNull();
     }
@@ -111,7 +111,7 @@ public class MineCellCreatorTest {
     @Test
     public void createMarkAsMineField(){
         ImageView expectedImageView = new ImageView();
-        when(iconProvider.createMineMarkerImage(25,25)).thenReturn(expectedImageView);
+        when(iconProvider.createImage(Icons.MINE_MARKER,25,25)).thenReturn(expectedImageView);
         Cell cellMarkedAsMine = new Cell(true, true, 4);
         cellMarkedAsMine.setFlagStatus(FlagStatus.MARKED_AS_MINE);
 
@@ -121,7 +121,7 @@ public class MineCellCreatorTest {
         assertThat(cell.getMaxHeight()).isEqualTo(25);
         assertThat(cell.getMinWidth()).isEqualTo(25);
         assertThat(cell.getMaxHeight()).isEqualTo(25);
-        verify(iconProvider, times(1)).createMineMarkerImage(25,25);
+        verify(iconProvider, times(1)).createImage(Icons.MINE_MARKER,25,25);
         assertThat(cell.getGraphic()).isEqualTo(expectedImageView);
         assertThat(cell.getText()).isEqualTo("");
         assertThat(cell.getId()).isEqualTo("covered");
@@ -131,7 +131,7 @@ public class MineCellCreatorTest {
     @Test
     public void createMarkAsUnknownField(){
         ImageView expectedImageView = new ImageView();
-        when(iconProvider.createQuestionMarkMarkerImage(25,25)).thenReturn(expectedImageView);
+        when(iconProvider.createImage(Icons.QUESTION_MARK_MARKER,25,25)).thenReturn(expectedImageView);
         Cell cellMarkedAsMine = new Cell(true, true, 4);
         cellMarkedAsMine.setFlagStatus(FlagStatus.MARKED_AS_UNKNOWN);
 
@@ -141,7 +141,7 @@ public class MineCellCreatorTest {
         assertThat(cell.getMaxHeight()).isEqualTo(25);
         assertThat(cell.getMinWidth()).isEqualTo(25);
         assertThat(cell.getMaxHeight()).isEqualTo(25);
-        verify(iconProvider, times(1)).createQuestionMarkMarkerImage(25,25);
+        verify(iconProvider, times(1)).createImage(Icons.QUESTION_MARK_MARKER,25,25);
         assertThat(cell.getGraphic()).isEqualTo(expectedImageView);
         assertThat(cell.getText()).isEqualTo("");
         assertThat(cell.getId()).isEqualTo("covered");

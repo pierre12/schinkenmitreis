@@ -20,6 +20,8 @@ public class Clock {
             return;
         }
 
+        this.elapsedTimeInSeconds = 0;
+        this.eventHandler.onUpdate(elapsedTimeInSeconds);
         this.timeline = createTimeline();
         this.timeline.setCycleCount(Animation.INDEFINITE);
         this.timeline.play();

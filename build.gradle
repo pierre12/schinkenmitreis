@@ -7,11 +7,11 @@ plugins {
 javafx {
     version = "17.0.10"
     modules = ['javafx.base','javafx.controls', 'javafx.fxml']
-
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+mainClassName = 'com.labuhn.minesweeper.MineSweeperApplication'
 
 repositories {
     mavenCentral()
@@ -22,11 +22,11 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.25.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.1'
-    testImplementation 'org.mockito:mockito-core:5.2.0'
-    testImplementation 'org.mockito:mockito-junit-jupiter:5.2.0'
+    testImplementation 'org.mockito:mockito-core:5.10.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.10.0'
     testImplementation "org.testfx:testfx-core:4.0.17"
     testImplementation 'org.testfx:testfx-junit5:4.0.17'
-    testImplementation 'org.awaitility:awaitility:3.0.0'
+    testImplementation 'org.awaitility:awaitility:4.2.0'
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 }
