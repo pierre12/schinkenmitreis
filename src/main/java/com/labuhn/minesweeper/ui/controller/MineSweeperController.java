@@ -6,6 +6,7 @@ import com.labuhn.minesweeper.ui.time.Clock;
 import com.labuhn.minesweeper.ui.time.TimeUtil;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -19,17 +20,23 @@ public class MineSweeperController {
     private GridPane mineSweeperGrid;
     @FXML
     private Label timeLabel;
+    @FXML
+    Button restartButton;
 
     private MineFieldCreator mineFieldCreator;
-
     private Clock clock;
+    private IconCreator iconCreator;
 
+
+    public void setIconCreator(IconCreator iconCreator){
+        this.iconCreator = iconCreator;
+        this.restartButton.setGraphic(this.iconCreator.createImage(Icons.RESTART_ICON,25,25));
+    }
     public void setMineFieldCreator(MineFieldCreator mineFieldCreator) {
         this.mineFieldCreator = mineFieldCreator;
     }
 
     public void startGame(int width, int height) {
-        this.clock = this.createClock();
         this.clock.start();
         render(createDummyGrid(width, height));
     }
@@ -39,6 +46,7 @@ public class MineSweeperController {
     }
 
     private void render(Cell[][] grid) {
+        this.mineSweeperGrid.getChildren().clear();
         for (int y = 0; y < grid.length; y++) {
             Cell[] gridRow = grid[y];
             Label[] row = new Label[gridRow.length];
@@ -90,6 +98,15 @@ public class MineSweeperController {
         }
 
         return grid;
+    }
+
+    @FXML
+    public void initialize() {
+        this.clock = this.createClock();
+        this.restartButton.setOnMouseClicked((e) -> {
+            this.clock.stop();
+            startGame(this.mineSweeperGrid.getColumnCount(),this.mineSweeperGrid.getRowCount());
+        });
     }
 
 }

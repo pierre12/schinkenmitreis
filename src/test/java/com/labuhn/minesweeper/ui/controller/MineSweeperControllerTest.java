@@ -4,7 +4,12 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.labuhn.minesweeper.ui.time.Clock;
+import com.sun.javafx.collections.ObservableListWrapper;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,18 +36,46 @@ public class MineSweeperControllerTest {
     @Mock
     private Clock clock;
 
-    @InjectMocks
+    private IconCreator iconCreator;
+
     @Spy
+    @InjectMocks
     private MineSweeperController mineSweeperController;
 
     @Captor
     private ArgumentCaptor<Label[]> captor;
 
+
     @BeforeEach
     public void setup() {
         mineSweeperController.setMineFieldCreator(mineFieldCreator);
+        mineSweeperController.restartButton = spy(Button.class);
+        doNothing().when(mineSweeperController.restartButton).setGraphic(Mockito.any());
+        Platform.runLater(()-> MockitoAnnotations.openMocks(mineSweeperController));
+        lenient().when(mineSweeperGrid.getChildren()).thenReturn(new ObservableListWrapper<>(Collections.emptyList()));
+        iconCreator =mock(IconCreator.class);
+        mineSweeperController.setIconCreator(iconCreator);
+    }
 
+    @Test
+    public void initializesClock(){
+        mineSweeperController.initialize();
+
+        verify(mineSweeperController,times(1)).createClock();
+    }
+
+    @Test
+    public void initializesRestartButton(){
+        doNothing().when(mineSweeperController).startGame(Mockito.anyInt(),Mockito.anyInt());
         doReturn(clock).when(mineSweeperController).createClock();
+        mineSweeperController.initialize();
+
+
+        EventHandler<? super MouseEvent> onMouseClicked = mineSweeperController.restartButton.getOnMouseClicked();
+        onMouseClicked.handle(null);
+
+        verify(clock,times(1)).stop();
+        verify(mineSweeperController,times(1)).startGame(Mockito.anyInt(),Mockito.anyInt());
     }
 
     @Test

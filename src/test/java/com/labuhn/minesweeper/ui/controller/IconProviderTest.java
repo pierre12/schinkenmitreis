@@ -7,37 +7,16 @@ import org.junit.jupiter.api.Test;
 
 public class IconProviderTest {
 
-    private final IconProvider iconProvider = new IconProvider();
+    private final IconCreator iconProvider = new IconCreator();
 
     @Test
     public void createMineImage(){
-        ImageView mine = iconProvider.createMineImage(100,150);
+        ImageView mine = iconProvider.createImage(Icons.MINE, 100,150);
 
         assertThat(mine.isPreserveRatio()).isEqualTo(true);
         assertThat(mine.getFitWidth()).isEqualTo(100);
         assertThat(mine.getFitHeight()).isEqualTo(150);
         assertThat(mine.getImage()).isNotNull();
     }
-
-    @Test
-    public void createMineMarkerImage(){
-        ImageView mine = iconProvider.createMineMarkerImage(100,150);
-
-        assertThat(mine.isPreserveRatio()).isEqualTo(true);
-        assertThat(mine.getFitWidth()).isEqualTo(100);
-        assertThat(mine.getFitHeight()).isEqualTo(150);
-        assertThat(mine.getImage()).isNotNull();
-    }
-
-    @Test
-    public void createQuestionMarkMarkerImage(){
-        ImageView mine = iconProvider.createQuestionMarkMarkerImage(100,150);
-
-        assertThat(mine.isPreserveRatio()).isEqualTo(true);
-        assertThat(mine.getFitWidth()).isEqualTo(100);
-        assertThat(mine.getFitHeight()).isEqualTo(150);
-        assertThat(mine.getImage()).isNotNull();
-    }
-
 
 }
